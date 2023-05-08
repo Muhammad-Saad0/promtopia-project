@@ -22,11 +22,15 @@ const Nav = () => {
     (async () => {
       const res = await getProviders();
       setProviders(res);
+      console.log(Object.values(res));
     })();
   }, []);
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
+      <h1 className="text-black">
+        {session?.user.email}
+      </h1>
       <Link
         href="/"
         className="flex gap-2 flex-center"
@@ -83,7 +87,7 @@ const Nav = () => {
                     }}
                     className="black_btn"
                   >
-                    Sign in
+                    Sign in with {provider.name}
                   </button>
                 )
               )}

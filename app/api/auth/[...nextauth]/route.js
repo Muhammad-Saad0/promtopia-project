@@ -1,5 +1,6 @@
 import { connectToDatabase } from "@lib/mongodb";
 import User from "@models/userModel";
+import { connection } from "mongoose";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -11,22 +12,26 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session }) {},
+    async session({ session }) {
+      const user = await User.findOne({
+        email: session.user.email,
+      });
+      session.user.id = user._id.toString();
+      return session;
+    },
     async signIn({ profile }) {
       try {
         const connection =
           await connectToDatabase();
 
-        // const userExists = await User.findOne({
-        //   email: profile.email,
-        // });
-        const userExists = false;
+        const userExists = await User.findOne({
+          email: profile.email,
+        });
         if (!userExists) {
           const user = new User({
             email: profile.email,
             name: profile.name,
           });
-          console.log(user);
           await user.save();
           console.log("USER SAVED");
         } else {
@@ -38,6 +43,7 @@ const handler = NextAuth({
       } catch (error) {
         console.log(error.message);
       }
+      connection.close();
     },
   },
 });
