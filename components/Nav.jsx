@@ -28,9 +28,6 @@ const Nav = () => {
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
-      <h1 className="text-black">
-        {session?.user.email}
-      </h1>
       <Link
         href="/"
         className="flex gap-2 flex-center"
