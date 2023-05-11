@@ -46,6 +46,7 @@ const handler = NextAuth({
       connection.close();
     },
   },
+  secret: process.env.JWT_SECRET,
 });
 
 export { handler as GET, handler as POST };

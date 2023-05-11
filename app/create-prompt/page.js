@@ -1,5 +1,8 @@
+"use client";
+
 import React from "react";
 import Form from "@components/Form";
+import { useState } from "react";
 
 const createPost = () => {
   const [isSubmitting, setIsSubmitting] =
@@ -11,9 +14,9 @@ const createPost = () => {
 
   const createPrompt = () => {};
   return (
-    <section>
+    <section className="w-full">
       <Form
-        type="create"
+        type="Create"
         post={post}
         setPost={setPost}
         isSubmitting={isSubmitting}
