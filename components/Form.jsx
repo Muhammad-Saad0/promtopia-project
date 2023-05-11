@@ -80,9 +80,7 @@ const Form = ({
             className="px-3 py-2 bg-orange-500
           rounded-full text-white font-semibold"
           >
-            {isSubmitting
-              ? `${type}...`
-              : "Submit"}
+            {isSubmitting ? `${type}...` : type}
           </button>
         </div>
       </form>
