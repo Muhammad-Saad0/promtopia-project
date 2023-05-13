@@ -1,11 +1,29 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { useState } from "react";
 
 const Feed = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const [searchText, setSearchText] =
+    useState("");
+  const handleSearchChange = (event) => {
+    event.preventDefault();
+    setSearchText(event.target.value);
+  };
 
-export default Feed
+  return (
+    <section className="feed">
+      <form className="relative w-full flex-center">
+        <input
+          type="text"
+          className="search_input peer"
+          placeholder="Search for a tag or username"
+          required
+          onChange={handleSearchChange}
+          value={searchText}
+        />
+      </form>
+    </section>
+  );
+};
+
+export default Feed;
