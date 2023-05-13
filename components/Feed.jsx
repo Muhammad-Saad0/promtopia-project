@@ -1,8 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
+const promptList = () => {
+  return (
+    <div className="text-black">
+      this is prompt list
+    </div>
+  );
+};
+
 const Feed = () => {
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const posts = await (
+        await fetch("/api/prompt")
+      ).json();
+      setPosts(posts);
+    };
+    fetchPosts();
+  }, []);
+
+  const [posts, setPosts] = useState([]);
   const [searchText, setSearchText] =
     useState("");
   const handleSearchChange = (event) => {
@@ -22,6 +41,7 @@ const Feed = () => {
           value={searchText}
         />
       </form>
+      <promptList />
     </section>
   );
 };
