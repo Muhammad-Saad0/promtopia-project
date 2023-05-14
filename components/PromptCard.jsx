@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 
 const PromptCard = ({
-  key,
   creator,
   promptText,
   tag,
@@ -30,6 +29,7 @@ const PromptCard = ({
             width={40}
             height={40}
             className="rounded-full object-contain"
+            alt="profile-photo"
           />
           <div className="flex flex-col">
             <h3

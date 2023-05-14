@@ -10,6 +10,7 @@ const PromptList = ({ data }) => {
         console.log(prompt);
         return (
           <PromptCard
+            key={prompt._id}
             creator={prompt.creator?.username}
             promptText={prompt.prompt}
             tag={prompt.tag}
