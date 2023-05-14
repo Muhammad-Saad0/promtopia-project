@@ -11,11 +11,7 @@ const PromptList = ({ data }) => {
         return (
           <PromptCard
             key={prompt._id}
-            creator={prompt.creator?.username}
-            promptText={prompt.prompt}
-            tag={prompt.tag}
-            creatorEmail={prompt.creator?.email}
-            image={prompt.creator?.image}
+            post={prompt}
           />
         );
       })}

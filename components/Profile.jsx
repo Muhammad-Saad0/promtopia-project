@@ -17,18 +17,18 @@ const Profile = ({
       </h1>
       <p className="desc text-left">{desc}</p>
       <div className="mt-16">
-        {data.map((prompt) => {
-          return (
-            <PromptCard
-              key={prompt._id}
-              creator={prompt.creator?.username}
-              promptText={prompt.prompt}
-              tag={prompt.tag}
-              creatorEmail={prompt.creator?.email}
-              image={prompt.creator?.image}
-            />
-          );
-        })}
+        {data ? (
+          data.map((prompt) => {
+            return (
+              <PromptCard
+                key={prompt._id}
+                post={prompt}
+              />
+            );
+          })
+        ) : (
+          <div></div>
+        )}
       </div>
     </section>
   );

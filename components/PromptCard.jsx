@@ -1,19 +1,21 @@
 import React from "react";
 import Image from "next/image";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import {
+  usePathname,
+  useRouter,
+} from "next/navigation";
 
-const PromptCard = ({
-  creator,
-  promptText,
-  tag,
-  creatorEmail,
-  image,
-}) => {
+const PromptCard = ({ post }) => {
+  const { data: session } = useSession();
+  const pathName = usePathname();
+  const router = useRouter();
   const [copied, setCopied] = useState("");
 
   const handleCopy = () => {
-    setCopied(promptText);
-    navigator.clipboard.writeText(promptText);
+    setCopied(post.prompt);
+    navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(""), 3000);
   };
 
@@ -25,7 +27,7 @@ const PromptCard = ({
         flex cursor-pointer items-center"
         >
           <Image
-            src={image}
+            src={post.creator.image}
             width={40}
             height={40}
             className="rounded-full object-contain"
@@ -36,10 +38,10 @@ const PromptCard = ({
               className="font-satoshi font-semibold
             text-gray-900"
             >
-              {creator}
+              {post.creator.username}
             </h3>
             <p className="font-inter text-sm text-gray-500">
-              {creatorEmail}
+              {post.creator.email}
             </p>
           </div>
         </div>
@@ -48,10 +50,11 @@ const PromptCard = ({
           onClick={handleCopy}
         >
           <Image
+            alt="..."
             width={20}
             height={20}
             src={
-              copied === promptText
+              copied === post.prompt
                 ? "/assets/icons/tick.svg"
                 : "/assets/icons/copy.svg"
             }
@@ -62,14 +65,14 @@ const PromptCard = ({
         className="my-4 font-satoshi text-sm 
       text-gray-700"
       >
-        {promptText}
+        {post.prompt}
       </p>
       <p
         className="cursor-pointer font-inter
       text-sm blue_gradient"
         onClick={() => {}}
       >
-        {tag}
+        {post.tag}
       </p>
     </div>
   );

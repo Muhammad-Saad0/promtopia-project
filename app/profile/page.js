@@ -1,5 +1,4 @@
 "use client";
-
 import React, {
   useState,
   useEffect,
@@ -11,19 +10,19 @@ const MyProfile = () => {
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
+    console.log(session?.user.id);
     const fetchPosts = async () => {
-      const posts = await (
+      const data = await (
         await fetch(
           `/api/users/${session?.user.id}/posts`
         )
       ).json();
-      setPosts(posts);
-      //ONLY FETCH POSTS IF USER IS LOGGED IN
-      if (session?.user.id) {
-        fetchPosts();
-      }
+      setPosts(data);
     };
-  }, []);
+    if (session?.user.id) {
+      fetchPosts();
+    }
+  }, [session]);
   const handleEdit = () => {};
   const handleDelete = () => {};
   return (
