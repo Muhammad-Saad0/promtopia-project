@@ -1,11 +1,23 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
+import PromptCard from "./PromptCard";
 
-const promptList = () => {
+const PromptList = ({ data }) => {
   return (
-    <div className="text-black">
-      this is prompt list
+    <div>
+      {data.map((prompt) => {
+        console.log(prompt);
+        return (
+          <PromptCard
+            creator={prompt.creator?.username}
+            promptText={prompt.prompt}
+            tag={prompt.tag}
+            creatorEmail={prompt.creator?.email}
+            image={prompt.creator?.image}
+          />
+        );
+      })}
     </div>
   );
 };
@@ -16,6 +28,7 @@ const Feed = () => {
       const posts = await (
         await fetch("/api/prompt")
       ).json();
+      console.log(posts);
       setPosts(posts);
     };
     fetchPosts();
@@ -41,7 +54,7 @@ const Feed = () => {
           value={searchText}
         />
       </form>
-      <promptList />
+      <PromptList data={posts} />
     </section>
   );
 };

@@ -30,8 +30,10 @@ const handler = NextAuth({
         if (!userExists) {
           const user = new User({
             email: profile.email,
-            name: profile.name,
+            username: profile.name,
+            image: profile.picture,
           });
+          console.log(user);
           await user.save();
           console.log("USER SAVED");
         } else {
@@ -41,7 +43,7 @@ const handler = NextAuth({
 
         return true;
       } catch (error) {
-        console.log(error.message);
+        console.log(error);
       }
       connection.close();
     },

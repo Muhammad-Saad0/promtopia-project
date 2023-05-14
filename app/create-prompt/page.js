@@ -18,7 +18,6 @@ const createPost = () => {
     event.preventDefault();
     setIsSubmitting(true);
     try {
-      console.log(session);
       fetch(
         "http://localhost:3000/api/prompt/new",
         {
