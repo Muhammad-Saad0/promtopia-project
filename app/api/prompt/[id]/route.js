@@ -42,6 +42,9 @@ export const PATCH = async (req, { params }) => {
     existingPrompt.tag = tag;
 
     await existingPrompt.save();
+    return new Response("Prompt updated", {
+      status: 200,
+    });
   } catch (error) {
     return new Response(
       "Failed to update the prompt",

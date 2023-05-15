@@ -4,8 +4,10 @@ import React from "react";
 import Form from "@components/Form";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const createPost = () => {
+  const router = useRouter();
   const session = useSession();
   const [isSubmitting, setIsSubmitting] =
     useState(false);
@@ -14,11 +16,11 @@ const createPost = () => {
     tag: "",
   });
 
-  const createPrompt = (event) => {
+  const createPrompt = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
     try {
-      fetch(
+      const response = await fetch(
         "http://localhost:3000/api/prompt/new",
         {
           method: "POST",
@@ -29,6 +31,9 @@ const createPost = () => {
           }),
         }
       );
+      if (response.ok) {
+        router.push("/");
+      }
     } catch (error) {
       console.log(error);
     } finally {

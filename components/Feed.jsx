@@ -5,7 +5,7 @@ import PromptCard from "./PromptCard";
 
 const PromptList = ({ data }) => {
   return (
-    <div>
+    <div className="mt-16 flex flex-wrap flex-1">
       {data.map((prompt) => {
         console.log(prompt);
         return (

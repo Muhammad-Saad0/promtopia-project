@@ -4,8 +4,10 @@ import React from "react";
 import Form from "@components/Form";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const createPost = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
   const [isSubmitting, setIsSubmitting] =
@@ -25,11 +27,11 @@ const createPost = () => {
     if (promptId) [fetchPost()];
   }, [promptId]);
 
-  const editPrompt = (event) => {
+  const editPrompt = async (event) => {
     event.preventDefault();
     setIsSubmitting(true);
     try {
-      fetch(
+      const response = await fetch(
         `http://localhost:3000/api/prompt/${promptId}`,
         {
           method: "PATCH",
@@ -39,6 +41,10 @@ const createPost = () => {
           }),
         }
       );
+
+      if (response.ok) {
+        router.push("/");
+      }
     } catch (error) {
       console.log(error);
     } finally {
