@@ -5,8 +5,10 @@ import React, {
 } from "react";
 import Profile from "@components/Profile";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const MyProfile = () => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [posts, setPosts] = useState([]);
   useEffect(() => {
@@ -23,8 +25,10 @@ const MyProfile = () => {
       fetchPosts();
     }
   }, [session]);
-  const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleEdit = (post) => {
+    router.push(`/update-prompt?id=${post._id}`);
+  };
+  const handleDelete = (post) => {};
   return (
     <Profile
       name="My"

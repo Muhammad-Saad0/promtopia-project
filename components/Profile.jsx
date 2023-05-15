@@ -23,6 +23,8 @@ const Profile = ({
               <PromptCard
                 key={prompt._id}
                 post={prompt}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
               />
             );
           })
