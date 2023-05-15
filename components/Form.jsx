@@ -8,6 +8,8 @@ const Form = ({
   isSubmitting,
   handleSubmit,
 }) => {
+  console.log(post);
+
   return (
     <section className="flex-col flex w-full max-w-full">
       <h1 className="text-left head_text">
